@@ -1,0 +1,20 @@
+{
+  "name": "node-ebooks-for-twitter",
+  "version": "0.0.1",
+  "description": "A",
+  "main": "ebooks-bot.js",
+  "scripts": {
+    "start": "node ebooks-bot.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bsherron/node-ebooks-for-twitter"
+  },
+  "author": "Bob Sherron",
+  "license": "Freeee",
+  "dependencies": {
+    "markovchain": "^1.0.2",
+    "twit": "^2.2.3"
+  }
+}

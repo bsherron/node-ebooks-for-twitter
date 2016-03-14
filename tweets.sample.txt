@@ -1,0 +1,3 @@
+Rename this 'tweets.txt'
+Fill it with your tweets, one per line
+Yes, something better is coming soon..?
