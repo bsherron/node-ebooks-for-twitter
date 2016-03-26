@@ -12,9 +12,11 @@
     "url": "https://github.com/bsherron/node-ebooks-for-twitter"
   },
   "author": "Bob Sherron",
-  "license": "Freeee",
+  "license": "ISC",
   "dependencies": {
     "markovchain": "^1.0.2",
-    "twit": "^2.2.3"
+    "twit": "^2.2.3",
+    "promise-mysql": "^1.3.2",
+    "bluebird": "^3.3.4"
   }
 }
