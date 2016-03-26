@@ -26,6 +26,26 @@ var normalizeTweet = function(rawTweet) {
 
 var normalizeWord = function(word) {
     // do stuff to each word
+    //airquotes
+    if (word.slice(-1) == '"') {
+        word = '"' + word
+    } else if (word.slice(0,1) == '"') {
+        word = word + '"' 
+    } else if (word.slice(-1) == '”') {
+        word = '“' + word
+    } else if (word.slice(0,1) == '“') {
+        word = word + '”' 
+    }
+    
+    //airparens
+    if (word.slice(-1) == ')') {
+        word = '(' + word
+    } else if (word.slice(0,1) == '(') {
+        word = word + ')' 
+    }
+    
+    // drop brackets
+    word = word.replace(/\[|\]/g, '')
     return word
 }
  
@@ -60,11 +80,16 @@ var T = new Twit({
 
 // I'll start with an uppercase word because that reasonably likely to start a sentence in a real tweete
 var useUpperCase = function(wordList) { 
-    
     var tmpList = Object.keys(wordList).filter(function(word) {
         return word[0] >= 'A' && word[0] <= 'Z'
     })
     tmpList.push('tfw') // lol
+    return tmpList[~~(Math.random()*tmpList.length)]
+}
+
+//any old word will do
+var randomStartWord = function(wordList) {
+    var tmpList = Object.keys(wordList)
     return tmpList[~~(Math.random()*tmpList.length)]
 }
 
@@ -92,7 +117,7 @@ var makeATweet = function() {
     var getMarkovChain = Promise.promisify(buildMarkovChain)
     getMarkovChain().then( function(chain) {
         
-        generatedTweet = chain.start(useUpperCase).end(endBotTweet).process()
+        generatedTweet = chain.start(randomStartWord).end(endBotTweet).process()
         // that punctuation tho
         if (generatedTweet.slice(-1).match(sentenceEndingPunctRegex) === null) { 
             // we didn't luck into punctuation at the end of the sentence, so add a period
@@ -102,9 +127,14 @@ var makeATweet = function() {
             }
             generatedTweet += '.'
         }
+        
+        // uppercase me
+        generatedTweet = generatedTweet.charAt(0).toUpperCase() + generatedTweet.slice(1);
+        
+        //console.log(generatedTweet);
         // ok tweet it
         T.post('statuses/update', { status: generatedTweet }, function(err, data, response) {
-           console.log(data)
+            console.log(data)
         })
     })    
 }
