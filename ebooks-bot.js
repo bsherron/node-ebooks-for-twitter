@@ -65,6 +65,7 @@ var buildMarkovChain = function(callback) {
                  lines += normalizeTweet(rows[i].text) + "\n"
              }
              callback(null, new MarkovChain(lines, normalizeWord))
+             connection.end()
          })
      })
 }
