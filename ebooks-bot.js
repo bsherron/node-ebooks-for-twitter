@@ -65,7 +65,8 @@ var buildMarkovChain = function(callback) {
                  lines += normalizeTweet(rows[i].text) + "\n"
              }
              callback(null, new MarkovChain(lines, normalizeWord))
-             connection.end()
+         }). then( function () {
+           connection.end()
          })
      })
 }
@@ -76,7 +77,7 @@ var T = new Twit({
     consumer_secret: config.twitter.consumer_secret,
     access_token: config.twitter.access_token,
     access_token_secret: config.twitter.access_token_secret
-});
+})
 
 
 // I'll start with an uppercase word because that reasonably likely to start a sentence in a real tweete
